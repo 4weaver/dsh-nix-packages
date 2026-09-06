@@ -15,17 +15,17 @@
 }:
 mkNpmPlugin {
   name = "dsh-fork-view";
-  version = "0.1.0";
+  version = "0.1.1";
   forceEmptyCache = true;
   tarball = fetchurl {
-    url = "https://codeload.github.com/an4nsi/dsh-fork-view/tar.gz/574ae04487953530ead398ded6de66e4113b4ae8";
-    sha256 = "sha256-Dlbt/+27cefcElnFBweihC0ooRDA71II4DF191m6BIE=";
+    url = "https://codeload.github.com/an4nsi/dsh-fork-view/tar.gz/d0be2986ed7ece4f5f42987016ea0b1d7ccffb9e";
+    sha256 = "sha256-DHyUyjRP7utQKmKhpKzm9frPrOadut5VHUZMB2swAZM=";
   };
   buildScript = ''
     # mirror of build.mjs: lib/client.js (CJS, react external) + lib/index.js (ESM, schemastery external)
     esbuild src/client/index.jsx --bundle --format=cjs --outfile=lib/client.js --external:react --external:react/jsx-runtime --jsx=transform --jsx-factory=jsx --jsx-fragment=Fragment
     esbuild src/index.js --bundle --format=esm --outfile=lib/index.js --external:schemastery
   '';
-  npmDepsHash = "sha256-Iuy6GkYJzswLpVgkkXV9JcMrX+Jevjyyevfv0P4ldp4=";
+  npmDepsHash = "sha256-b3J1EXG8wBKDFwwzxb6W+9rrPJzoeV9myZotiT8mnNc=";
   patchDir = ./vendor;
 }

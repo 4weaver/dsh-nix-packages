@@ -11,10 +11,10 @@
 { mkNpmPlugin, fetchurl, lib }:
 mkNpmPlugin {
   name = "dsh-better-sidebar";
-  version = "0.16.1";
+  version = "0.18.0";
   tarball = fetchurl {
-    url = "https://registry.npmjs.org/dsh-better-sidebar/-/dsh-better-sidebar-0.16.1.tgz";
-    sha256 = "sha256-NQSGxxLhcofDFt22uhW8BXQXlqsPTebFwNqucpkT8rM=";
+    url = "https://registry.npmjs.org/dsh-better-sidebar/-/dsh-better-sidebar-0.18.0.tgz";
+    sha256 = "sha256-7XId5TZCGEHs9IvdzNckmu2FRzos/4HENgOPWTpLhzs=";
   };
   patchDir = ./nix;
   # schemastery is a kept peer: declared as a peerDependency but NOT bundled.
@@ -22,5 +22,5 @@ mkNpmPlugin {
   # npm ci too) npm never fetches it; it resolves at runtime from the shared
   # top-level `schemastery` bundle (single cosmokit instance).
   legacyPeerDeps = true;
-  npmDepsHash = "sha256-tSEtMHPEHL4MlbZ4jdpFJtYLVneo4wcDQlzvRMfcq8U=";
+  npmDepsHash = "sha256-GZmIbQU/faGKaaUxZXi1m3vR7B/nQyQb8/nClKiyrgY=";
 }

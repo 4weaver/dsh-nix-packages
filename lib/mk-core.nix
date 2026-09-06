@@ -19,9 +19,13 @@ let
     url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-${version}.tgz";
     hash = tarballHash;
   };
-  srcWithLock = pkgs.runCommand "dsh-${version}-src" { } ''
+  # The published devDependencies reference @deepseek-ai/dsh-experimental-*
+  # packages that were never published to npm; vendor/dsh lock is generated
+  # dev-less, so strip the devDependencies block for a consistent npm ci.
+  srcWithLock = pkgs.runCommand "dsh-${version}-src" { nativeBuildInputs = [ pkgs.nodejs ]; } ''
     mkdir -p $out
     tar -xzf ${tarball} -C $out --strip-components=1
+    node -e 'const fs=require("fs");const f=process.argv[1];const p=JSON.parse(fs.readFileSync(f));delete p.devDependencies;fs.writeFileSync(f,JSON.stringify(p,null,2)+"\n")' $out/package.json
     cp ${lockDir}/package-lock.json $out/package-lock.json
   '';
   nodejs = pkgs.nodejs;

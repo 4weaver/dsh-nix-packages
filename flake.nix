@@ -30,12 +30,12 @@
           dshLib = import ./lib { inherit pkgs; lib = nixpkgs.lib; };
           base = import ./default.nix { pkgs = pkgs; };
           mkCorePackage = import ./lib/mk-core.nix { inherit (nixpkgs) lib; pkgs = pkgs; };
-          # core: @deepseek-ai/dsh rc.2, sharing the SINGLE cosmokit derivation
+          # core: @deepseek-ai/dsh rc.1 (0.1.2), sharing the SINGLE cosmokit derivation
           # (see lib/mk-core.nix). Exposed as packages.<sys>.core.
           core = mkCorePackage {
-            version = "0.1.1-rc.2";
-            tarballHash = "sha256-R+wF9FraWrh3ea4YqQRWtev/VCHcD/XBeWd9ZeHBYFc=";
-            npmDepsHash = "sha256-KqmjvS3vAcvd8Q9yBkG2tuQWfkikqIPWNT13xu9zBJ4=";
+            version = "0.1.2-rc.1";
+            tarballHash = "sha256-yjcGaAU61tCsMl6RnvX2XeU94At7rXgAjm+0It/ONTA=";
+            npmDepsHash = "sha256-oVEYd/hUVj4YlssUEirZfvZJ/Ws7PqPa6IGceaxy8mQ=";
             lockDir = ./vendor/dsh;
             cosmokit = base.cosmokit;
           };

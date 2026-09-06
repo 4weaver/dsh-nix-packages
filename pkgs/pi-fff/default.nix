@@ -7,11 +7,11 @@
 }:
 mkNpmPlugin {
   name = "@ff-labs/pi-fff";
-  version = "0.10.5";
+  version = "0.10.6";
   tarball = fetchurl {
-    url = "https://registry.npmjs.org/@ff-labs/pi-fff/-/pi-fff-0.10.5.tgz";
-    sha256 = "sha256-vjZt5SCM4shMsn9wu2LxtH5rRx3a2cZMpZsNw770a2k=";
+    url = "https://registry.npmjs.org/%40ff-labs%2Fpi-fff/-/pi-fff-0.10.6.tgz";
+    sha256 = "sha256-3GRdfqmnnFrJUe8u00yexmpIYN+xKFdlL7QQ11w9Mhw=";
   };
-  npmDepsHash = "sha256-MyR6CqXcXLjp3tHr3BO3L174EQvJ9mHNxXoLFgcKoRU=";
+  npmDepsHash = "sha256-giyNyluwd7B5inRJia1oO0Dp52MpSItqi8Z0zQbQDys=";
   patchDir = ./vendor;
 }

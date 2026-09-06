@@ -9,11 +9,11 @@
 }:
 mkNpmPlugin {
   name = "pi2dsh";
-  version = "0.21.0";
+  version = "0.24.0";
   tarball = fetchurl {
-    url = "https://registry.npmjs.org/pi2dsh/-/pi2dsh-0.21.0.tgz";
-    sha256 = "sha256-YUazC91QRX6yIGtzWArAm7eWBLXrRWs6qAYSkIooVKI=";
+    url = "https://registry.npmjs.org/pi2dsh/-/pi2dsh-0.24.0.tgz";
+    sha256 = "sha256-e3ANu7xWR0Y6LDbywoXkVindpEF1PmfoaZpf7i70TO0=";
   };
-  npmDepsHash = "sha256-WUQI5snWpWe8CuONku0i5p4ypU6j+H+t95P/wDI/f1A=";
+  npmDepsHash = "sha256-tJdGvcAkN1Y8RP6/m4/5mFWFsy59sYsUiYGFUAQKhbg=";
   patchDir = ./vendor;
 }

@@ -24,8 +24,8 @@ let
   # core + every plugin (see lib/mk-core.nix).
   sharedCosmokit = mkNpmLeaf {
     name = "@deepseek-ai/cosmokit";
-    version = "1.8.2";
-    tarballHash = "sha256-dJhuCl0reYRgfVkTl0sIPTDv4xrFwlqLHvyQsG+k7JA=";
+    version = "1.8.3";
+    tarballHash = "sha256-VS8QMT3f3CuSzOGGe5vzCypMneVVQ60iL+Z8IgFeRAA=";
   };
   sharedSpec = mkNpmLeaf {
     name = "@standard-schema/spec";
@@ -34,8 +34,8 @@ let
   };
   sharedSchemastery = mkNpmLeaf {
     name = "@deepseek-ai/schemastery";
-    version = "3.18.1";
-    tarballHash = "sha256-pktb7WYfMDyyekS8OUIULalTRgzKRFcfidlg81p0toI=";
+    version = "3.18.2";
+    tarballHash = "sha256-oP5wC5wFXwTf7IfLRq5KEQbG+sbCcfih3wDhADjwqsE=";
   };
   # bare `schemastery` alias (the dsh convention: sibling plugins `import "schemastery"`)
   schemasteryAlias = pkgs.runCommand "dsh-schemastery-alias" { } ''
@@ -62,6 +62,7 @@ in {
   # node_modules entry the dsh profile peers expect) ---
   pi2dsh = callPackage ./pkgs/pi2dsh {};
   dsh-better-sidebar = callPackage ./pkgs/dsh-better-sidebar {};
+  dsh-llm-bifrost = callPackage ./pkgs/dsh-llm-bifrost {};
   dsh-web-search-exa = callPackage ./pkgs/dsh-web-search-exa {};
   dsh-web-ding = callPackage ./pkgs/dsh-web-ding {};
   dsh-fork-view = callPackage ./pkgs/dsh-fork-view {};
