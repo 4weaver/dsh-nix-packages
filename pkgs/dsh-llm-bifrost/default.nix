@@ -18,8 +18,8 @@ mkNpmPlugin {
   name = "dsh-llm-bifrost";
   version = "0.0.1";
   tarball = fetchurl {
-    url = "https://codeload.github.com/4weaver/dsh-llm-bifrost/tar.gz/c65736bf645a77db67cc427e90ac66b9deee3047";
-    sha256 = "sha256-RP0mH/yDeY9ypBk5FU72diF9KMo7XmmKsUvAhZTIpzQ=";
+    url = "https://codeload.github.com/4weaver/dsh-llm-bifrost/tar.gz/8b83d37805cb17c4c2fdd4df61a2590cff85b83c";
+    sha256 = "sha256-RDM/c9xrUdJLYVND9fy99tdswkRQ2/w7RilpJe9x9EQ=";
   };
   npmDepsHash = "sha256-XXmdc0S7K6lJ1Wrj/3mzcTG8PsNVqrMfYT4gAgsqZMk=";
   patchDir = ./vendor;
