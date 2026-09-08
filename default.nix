@@ -62,6 +62,10 @@ in {
   # node_modules entry the dsh profile peers expect) ---
   pi2dsh = callPackage ./pkgs/pi2dsh {};
   dsh-better-sidebar = callPackage ./pkgs/dsh-better-sidebar {};
+  # Vendor override of the OFFICIAL ui-workspace (fork-tree view); carries the
+  # @deepseek-ai/ name+version so buildProfile's first-wins symlinkJoin replaces
+  # the official copy nested in core's node_modules.
+  dsh-client-ui-workspace = callPackage ./pkgs/dsh-client-ui-workspace {};
   dsh-llm-bifrost = callPackage ./pkgs/dsh-llm-bifrost {};
   dsh-web-search-exa = callPackage ./pkgs/dsh-web-search-exa {};
   dsh-web-ding = callPackage ./pkgs/dsh-web-ding {};
