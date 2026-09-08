@@ -28,8 +28,8 @@ mkNpmPlugin {
   version = "0.1.2-rc.1";
   forceEmptyCache = true;
   tarball = fetchurl {
-    url = "https://codeload.github.com/4weaver/dsh-client-ui-workspace/tar.gz/76cff27c2b5686a49edf6ab916cc0fe8717f4135";
-    sha256 = "sha256-SDx84idCQux9ITu+Nqh9VDYeZsgVsPSVmRJkb/FuoEo=";
+    url = "https://codeload.github.com/4weaver/dsh-client-ui-workspace/tar.gz/7e60ae706d6ff93e9fc7dbdc854975013e38a387";
+    sha256 = "sha256-SKLW07zqH9OfD9hN3PXbgPuwPxuP+OFK+4XOPzOdSe0=";
   };
   npmDepsHash = "sha256-5K3NzRCy6eFkfFzScYNaPmVDSS7veQlCFrVMYnRiFgQ=";
   patchDir = ./vendor;
