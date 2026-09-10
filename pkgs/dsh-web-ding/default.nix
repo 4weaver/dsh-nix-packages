@@ -50,7 +50,13 @@
 # npmDepsHash below is the REAL hash of THAT file, produced by
 # prefetch-npm-deps (not guessed, not read off a fakeHash failure) and
 # reproduced identically on three runs:
-#   sha256-S35vrhejvWZyBnLE1Vq+2bLcYxu6CqB1cyL8S6oyc0A=
+#   sha256-Jr7Xchzap/Gqol0RPBG6YDHnCne8wp9H9vDgqqJ5Wwc=
+#
+# The lock was re-cut once during this work: the type gate exposed that
+# @deepseek-ai/cordis was declared peer-only but imported type-only, so the
+# repo added it as a devDependency (source commit f3834ea) and the lock grew
+# from 99 to 95 entries with a different hash. The hash above is for the lock
+# at the PINNED rev below, not for any earlier one.
 #
 # ---------------------------------------------------------------------------
 # --legacy-peer-deps IS MANDATORY, INCLUDING AT `npm ci` TIME
@@ -64,13 +70,41 @@
 # ---------------------------------------------------------------------------
 # SOURCE PINNING
 # ---------------------------------------------------------------------------
-# Reviewed commit 4weaver/dsh-web-ding@5bcbdcd, pinned by rev so the derivation
-# never tracks a moving branch. This rev is the one that removes lib/ and sorts
-# the class map; the fetchFromGitHub tarball was confirmed to contain NO lib/.
+# Reviewed commit 4weaver/dsh-web-ding@e4cb596, pinned by rev so the derivation
+# never tracks a moving branch. This rev removes lib/, sorts the class map, and
+# adds the `build:checked` type gate (see below); the fetchFromGitHub tarball was
+# confirmed to contain NO lib/. Its package-lock.json is byte-identical to the
+# vendored lock (md5 116dca1ec2cca36fe1de69b1215b59dc), so npmDepsHash holds.
 # (If this package is ever pinned back to 25323fd, the build is no longer
-# reproducible and --check will fail — that is the point of pinning 5bcbdcd.)
+# reproducible and --check will fail — that is the point of pinning forward.)
 #
-# Output layout: buildNpmPackage installs via `npm pack` to
+# ONE BUNDLER PASS, PLUS A TYPE GATE — and neither is a copy of forkspace:
+#   * The BUNDLE is one step. Do not copy pkgs/dsh-client-ui-forkspace's
+#     `build:types` then `tsdown` ordering expecting it to be needed here. That
+#     repo bundles from a lib/types/*.js its own tsc pass must emit first
+#     (`tsdown` alone dies there with [UNRESOLVED_ENTRY]). dsh-web-ding has NO
+#     tsconfig.types.json, NO `build:types` script, and `dts: false` on BOTH
+#     tsdown entries: the host half is plain TS and the client half bundles
+#     straight from src/client/index.ts. Verified on a clean checkout of this
+#     rev with lib/ deleted — `npm run build` (= bare `tsdown`) emitted
+#     lib/index.js AND lib/client.js from scratch, exit 0.
+#   * The TYPE GATE exists and is NOT forkspace's shape. tsdown/rolldown STRIPS
+#     types without checking them, so a source with a type error would build and
+#     ship. The repo therefore added `build:checked` =
+#     `npm run typecheck && npm run build`, and this derivation calls THAT, not
+#     `build`. Divergence from the repo's own casual build is deliberate: Nix
+#     gates types, a plain `npm run build` does not.
+#     The difference from forkspace is worth stating because the two look alike:
+#     forkspace's `build:types` is LOAD-BEARING — its type step is a build step
+#     that happens to also check, since the bundler CONSUMES the JS tsc emits.
+#     Here `tsc --noEmit` emits nothing and the bundler consumes only src/, so
+#     the step is a PURE gate; its only job is to fail before bundling.
+#     Verified by negative control: injecting a TYPE error makes this derivation
+#     fail (exit 1, tsc TS2322) with NO output produced, while the same error
+#     sails through bare `npm run build` (exit 0). A SYNTAX error also fails.
+#     `build` itself is deliberately left as the plain bundler invocation, so a
+#     dev's local build and `prepublishOnly` are unchanged.
+#
 # $out/lib/node_modules/<name from package.json> — the bare-name layout the dsh
 # profile peers expect. package.json's `files` includes lib/, so the freshly
 # built lib/index.js and lib/client.js are what land in the store.
@@ -90,8 +124,8 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "4weaver";
     repo = "dsh-web-ding";
-    rev = "5bcbdcda8de03cf0591af81044bff8ccb6aca190";
-    hash = "sha256-BZ3gKE93WTvBa3KNchclg5hJpgMs+dDPJwVrVtIeErQ=";
+    rev = "f3834ea7f14cb5522cb80a8b09c532f3b4ac1980";
+    hash = "sha256-IEOdMPZnzrR7PCQTnLV1tmAMBZ13JfQlrhrGkWFPWZg=";
   };
 
   # The vendored lock is the single lock this derivation trusts; overwrite the
@@ -100,32 +134,19 @@ buildNpmPackage (finalAttrs: {
     cp ${./vendor/package-lock.json} package-lock.json
   '';
 
-  npmDepsHash = "sha256-S35vrhejvWZyBnLE1Vq+2bLcYxu6CqB1cyL8S6oyc0A=";
+  npmDepsHash = "sha256-Jr7Xchzap/Gqol0RPBG6YDHnCne8wp9H9vDgqqJ5Wwc=";
 
   # Reaches `npm ci` AND `npm rebuild`; mandatory, see header.
   npmFlags = [ "--legacy-peer-deps" ];
 
-  # `build` = bare `tsdown` (both halves in one pass; see header).
-  #
-  # NOTE, verified by a negative control — this packages the repo's OWN build
-  # faithfully, and that build does NOT typecheck. tsdown/rolldown strips types
-  # without checking them, so source with a TYPE error builds and ships here
-  # (exit 0). A source with a SYNTAX error does fail the derivation (exit 1,
-  # `ERROR: npm run build [...] failed`), as does a bad npmDepsHash/lock. So this
-  # is a real gate for unparseable/unresolvable input, not a type gate.
-  #
-  # This is the same defect forkspace's header calls out (its Non-obvious Fact:
-  # swallowed type errors), but the fix there does not transfer: forkspace's
-  # `build:types` step exists because its bundler CONSUMES emitted lib/types JS,
-  # which is absent here. Package.json does carry `typecheck` = `tsc --noEmit`
-  # and it currently passes clean (strict: true), so wiring it in here would be a
-  # one-line addition if a type gate is wanted — deliberately NOT done, to keep
-  # this derivation an exact reproduction of `npm run build` with no extra gate
-  # the repo itself does not apply. Nothing shipped depends on the types at
-  # runtime (the exports' `types` paths point at lib/types/*.d.ts, which this
-  # package never emitted even before this change — pre-existing, not a
-  # regression); they only affect downstream TypeScript consumers.
-  npmBuildScript = "build";
+  # `build:checked` = `npm run typecheck && npm run build`: the pure type gate
+  # (tsc --noEmit, emits nothing) FIRST, then the single tsdown pass that produces
+  # both halves. See the header for why the gate is needed, and why this is not
+  # forkspace's load-bearing `build:types` step (there the type step feeds the
+  # bundler; here it is a pure check). Calling this script rather than `build` is
+  # the deliberate divergence: Nix gates types, the repo's own `npm run build`
+  # does not. `build` is left untouched for devs and prepublishOnly.
+  npmBuildScript = "build:checked";
 
   # tsdown/lightningcss/typescript live in devDependencies and npm ci installs
   # them (dev deps are not omitted by default). Nothing reaches the network:
