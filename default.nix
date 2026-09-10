@@ -66,6 +66,10 @@ in {
   # @deepseek-ai/ name+version so buildProfile's first-wins symlinkJoin replaces
   # the official copy nested in core's node_modules.
   dsh-client-ui-workspace = callPackage ./pkgs/dsh-client-ui-workspace {};
+  # Same plugin, but built FROM SOURCE out of the fork's self-contained build
+  # unit (regenerated bundle, not the committed lib/). Separate package name on
+  # purpose: it is not yet wired into the profile.
+  dsh-client-ui-forkspace = callPackage ./pkgs/dsh-client-ui-forkspace {};
   dsh-llm-bifrost = callPackage ./pkgs/dsh-llm-bifrost {};
   dsh-web-search-exa = callPackage ./pkgs/dsh-web-search-exa {};
   dsh-web-ding = callPackage ./pkgs/dsh-web-ding {};
