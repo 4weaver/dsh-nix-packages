@@ -1,3 +1,18 @@
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║  BROKEN / UNMAINTAINED — DO NOT MOUNT, DO NOT ADD TO A PROFILE           ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+#
+# Superseded by `dsh-client-ui-forkspace` (repo 4weaver/dsh-client-ui-workspace).
+# Forkspace owns the whole `sidebar.workspaces` occupant — the official
+# ui-workspace row is disabled and the fork fills the slot under the same slot
+# names and the same cordis service name (uiWorkspace). This plugin shadowed
+# that very occupant and did everything else worse, so the two cannot coexist.
+# Nothing in this repo, the flake, or any profile mounts this package: it is
+# kept ONLY as historical reference, and is intentionally no longer wired into
+# the package set (see ../../default.nix).
+#
+# Original description follows.
+#
 # dsh-fork-view — pi-web-style nested fork/subagent process tree in the dsh
 # web sidebar. BUNDLE plugin (dsh.bundle.patch → cordis.patch.yml) with a
 # client half.
