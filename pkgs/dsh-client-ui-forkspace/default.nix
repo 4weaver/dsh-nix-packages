@@ -79,8 +79,8 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "4weaver";
     repo = "dsh-client-ui-workspace";
-    rev = "d45b71d2ee0c404540d7652a35b3584fd13ac2ee";
-    hash = "sha256-9wyMHmWlVON/m/OEmIa0fwUkH1WovpJfowq1xBBobjs=";
+    rev = "b693ae4aad84c83c776946404892bb40c227cea7";
+    hash = "sha256-eTZfLFuA5KuqIpdBnvzh9AeboWaT91YJCgAZxPeIMcM=";
   };
 
   # The committed lib/ must NOT be an input: discard it so a stale artifact
