@@ -18,7 +18,7 @@ mkNpmPlugin {
   version = "0.1.1";
   forceEmptyCache = true;
   tarball = fetchurl {
-    url = "https://codeload.github.com/an4nsi/dsh-fork-view/tar.gz/d0be2986ed7ece4f5f42987016ea0b1d7ccffb9e";
+    url = "https://codeload.github.com/4weaver/dsh-fork-view/tar.gz/d0be2986ed7ece4f5f42987016ea0b1d7ccffb9e";
     sha256 = "sha256-DHyUyjRP7utQKmKhpKzm9frPrOadut5VHUZMB2swAZM=";
   };
   buildScript = ''

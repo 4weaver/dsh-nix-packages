@@ -6,11 +6,11 @@
 #   lib            = package builders (mkNpmPlugin, mkNpmLeaf, mkCorePackage)
 #
 # The reusable dsh profile module + thin dsh wrapper builder (mkDsh) live in
-# the sibling repo `dsh-nix-wrapper` (github:an4nsi/dsh-nix-wrapper); the two
+# the sibling repo `dsh-nix-wrapper` (github:4weaver/dsh-nix-wrapper); the two
 # flakes are wired as separate inputs by consumers.
 #
 # Consume from another flake:
-#   inputs.dsh-nix-packages.url = "github:an4nsi/dsh-nix-packages";
+#   inputs.dsh-nix-packages.url = "github:4weaver/dsh-nix-packages";
 #   ... pkgs = pkgs // dsh-nix-packages.lib.${pkgs.system}; # builder functions
 #   ... or overlays = [ dsh-nix-packages.overlays.${system}.default ]
 {

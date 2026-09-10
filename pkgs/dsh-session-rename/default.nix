@@ -17,7 +17,7 @@ mkNpmPlugin {
   version = "0.1.0";
   forceEmptyCache = true;
   tarball = fetchurl {
-    url = "https://codeload.github.com/an4nsi/dsh-session-rename/tar.gz/64b253c9e42cdcd964a1c5bea91b90738e4b0f64";
+    url = "https://codeload.github.com/4weaver/dsh-session-rename/tar.gz/64b253c9e42cdcd964a1c5bea91b90738e4b0f64";
     sha256 = "sha256-z8wMv6q8i3UhON6PhssKnjjv6G5Rp4rIK3KnvT03/Uw=";
   };
   npmDepsHash = "sha256-RZkdn+cmmOVCus3cwxzIqmDdILl5r9T+HDqy6xXSplE=";

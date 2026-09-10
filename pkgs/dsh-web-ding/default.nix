@@ -20,7 +20,7 @@ mkNpmPlugin {
   version = "0.3.1";
   forceEmptyCache = true;
   tarball = fetchurl {
-    url = "https://codeload.github.com/an4nsi/dsh-web-ding/tar.gz/25323fd8069bb401eae341f10c5eab0efd43796a";
+    url = "https://codeload.github.com/4weaver/dsh-web-ding/tar.gz/25323fd8069bb401eae341f10c5eab0efd43796a";
     sha256 = "sha256-Oh+AndfajAR0HAdiLyl3m2lnSsuv16iUywTVA0cqsCg=";
   };
   npmDepsHash = "sha256-GXpxs1zIMr+bMd0+UL/Fi1Emo1tz8z28W4asDISUJ34=";

@@ -20,14 +20,14 @@ Each builds onto `out/lib/node_modules/<name>` — exactly the flat entry the
 dsh profile node_modules expects.
 
 > The reusable dsh **profile module** + thin **`dsh` wrapper builder** (`mkDsh`)
-> live in the sibling repo [`dsh-nix-wrapper`](https://github.com/an4nsi/dsh-nix-wrapper):
+> live in the sibling repo [`dsh-nix-wrapper`](https://github.com/4weaver/dsh-nix-wrapper):
 > core + plugins come from here, composition comes from there.
 
 ## Consume as a flake
 
 ```nix
 # flake.nix
-inputs.dsh-nix-packages.url = "github:an4nsi/dsh-nix-packages";
+inputs.dsh-nix-packages.url = "github:4weaver/dsh-nix-packages";
 
 # 1. as an overlay (exposes pi2dsh, dsh-better-sidebar, … on pkgs)
 outputs = { self, nixpkgs, dsh-nix-packages, ... }: let
