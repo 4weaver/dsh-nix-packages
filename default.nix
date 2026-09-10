@@ -62,13 +62,13 @@ in {
   # node_modules entry the dsh profile peers expect) ---
   pi2dsh = callPackage ./pkgs/pi2dsh {};
   dsh-better-sidebar = callPackage ./pkgs/dsh-better-sidebar {};
-  # Vendor override of the OFFICIAL ui-workspace (fork-tree view); carries the
-  # @deepseek-ai/ name+version so buildProfile's first-wins symlinkJoin replaces
-  # the official copy nested in core's node_modules.
-  dsh-client-ui-workspace = callPackage ./pkgs/dsh-client-ui-workspace {};
-  # Same plugin, but built FROM SOURCE out of the fork's self-contained build
-  # unit (regenerated bundle, not the committed lib/). Separate package name on
-  # purpose: it is not yet wired into the profile.
+  # dsh-client-ui-forkspace — the fork-tree replacement for the OFFICIAL
+  # ui-workspace, built FROM SOURCE out of the fork's self-contained build unit
+  # (regenerated bundle, never the committed lib/ — the fork no longer commits
+  # one). It does NOT wear the official name: the official Loader row
+  # `id: ui-workspace` is disabled in dsh-flake's config/web/cordis.patch.yml and
+  # this package is mounted by its own name via basePlugins instead of shadowing
+  # the official copy inside core's tree.
   dsh-client-ui-forkspace = callPackage ./pkgs/dsh-client-ui-forkspace {};
   dsh-llm-bifrost = callPackage ./pkgs/dsh-llm-bifrost {};
   dsh-web-search-exa = callPackage ./pkgs/dsh-web-search-exa {};
